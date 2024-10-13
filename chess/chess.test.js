@@ -13,7 +13,6 @@ describe('getAllPossiblePositions', () => {
 
   test('should return correct positions for a Queen', () => {
     const result = getAllPossiblePositions('Queen', 'D4');
-    console.log(result.join(', '));
     expect(result).toEqual(expect.arrayContaining(['C3', 'B2', 'A1', 'C4', 'B4', 'A4', 'C5', 'B6', 'A7', 'D3', 'D2', 'D1', 'D5', 'D6', 'D7', 'D8', 'E3', 'F2', 'G1', 'E4', 'F4', 'G4', 'H4', 'E5', 'F6', 'G7', 'H8']));
   });
 });
