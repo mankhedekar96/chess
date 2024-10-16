@@ -65,6 +65,46 @@ const getDiagonalBottomLeftPositions = ({ x, y }, count) => {
   return result;
 };
 
+
+const getVerticalForwardPositionsForKnight = ({ x, y }) => {
+  const result = [];
+  const yOffset = 2; // We are vertically moving upwards
+  const xOffset = 1; // We are horizontally moving to the right or left
+
+  if(y + yOffset < 8) {
+    result.push(`${xPositions[x - xOffset]}${yPositions[y + yOffset]}`);
+    result.push(`${xPositions[x + xOffset]}${yPositions[y + yOffset]}`);
+  }
+  return result;
+};
+
+const getVerticalBackwardPositionsForKnight = ({ x, y }) => {
+  const result = [];
+  if(y - 2 >= 1) {
+    result.push(`${xPositions[x - 1]}${yPositions[y - 2]}`);
+    result.push(`${xPositions[x + 1]}${yPositions[y - 2]}`);
+  }
+  return result;
+};
+
+const getHorizontalForwardPositionsForKnight = ({ x, y }) => {
+  const result = [];
+  if(x + 2 < 8) {
+    result.push(`${xPositions[x + 2]}${yPositions[y - 1]}`);
+    result.push(`${xPositions[x + 2]}${yPositions[y + 1]}`);
+  }
+  return result;
+};
+
+const getHorizontalBackwardPositionsForKnight = ({ x, y }) => {
+  const result = [];
+  if(x - 2 >= 1) {
+    result.push(`${xPositions[x - 2]}${yPositions[y - 1]}`);
+    result.push(`${xPositions[x - 2]}${yPositions[y + 1]}`);
+  }
+  return result;
+};
+
 const getAllPossiblePositions = (piece, position) => {
   const [horizontalPos, verticalPos] = position.split('');
   const horizontalPosition = xPositions.indexOf(horizontalPos);
@@ -94,6 +134,13 @@ const getAllPossiblePositions = (piece, position) => {
         ...getDiagonalBottomRightPositions({ x: horizontalPosition, y: verticalPosition }, 7),
         ...getHorizontalForwardPositions({ x: horizontalPosition, y: verticalPosition }, 7),
         ...getDiagonalTopRightPositions({ x: horizontalPosition, y: verticalPosition }, 7),
+      ];
+    case 'Knight':
+      return [
+        ...getVerticalForwardPositionsForKnight({ x: horizontalPosition, y: verticalPosition }),
+        ...getVerticalBackwardPositionsForKnight({ x: horizontalPosition, y: verticalPosition }),
+        ...getHorizontalForwardPositionsForKnight({ x: horizontalPosition, y: verticalPosition }),
+        ...getHorizontalBackwardPositionsForKnight({ x: horizontalPosition, y: verticalPosition }),
       ];
     default:
       return [];
